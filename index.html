@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Facts App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Fun Facts App!</h1>
+        <button id="generateFactButton">Generate Fun Fact</button>
+        <p id="factDisplay">Click the button to see a fun fact!</p>
+    </div>
+    <script>
+        const funFacts = [
+            "SpaceX is the first privately funded company to reach orbit with the Dragon capsule in 2010.",
+            "SpaceX pioneered reusable rockets with the Falcon 9, reducing space travel costs.",
+            "SpaceX First private company to send humans to the ISS with Crew Dragon in 2020.",
+            "SpaceX is Developing Starship for human travel to Mars and beyond.",
+            "Deploying Starlink satellites for global high-speed internet.",
+            "Mars is known as the 'Red Planet' due to its color.",
+            "Mars is the Home to Olympus Mons, the tallest volcano in the solar system.",
+            "Valles Marineris, the deepest and longest canyon, surpasses the Grand Canyon.",
+            "Elon Musk old a space-themed video game, 'Blastar,' at age 12 for $500.",
+            "Elon Musk early success in software foreshadowed his future in tech and entrepreneurship."
+        ];
+
+        function getRandomFact() {
+            const randomIndex = Math.floor(Math.random() * funFacts.length);
+            return funFacts[randomIndex];
+        }
+
+        document.getElementById('generateFactButton').addEventListener('click', () => {
+            const fact = getRandomFact();
+            document.getElementById('factDisplay').innerText = fact;
+        });
+    </script>
+</body>
+</html>
