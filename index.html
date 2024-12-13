@@ -1,79 +1,196 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fun Facts App About Elon Musk and Mars </title>
+    <title>Card Expansion Web App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <div><h1>Welcome my Fun Facts App 🚀</h1>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
-            color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
+            background-color: #f4f4f4;
         }
-
+        h1{
+            margin-bottom : 20px;
+            color : #333;
+            text-align : center;
+            width : 100%;
+        }
         .container {
-            text-align: center;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+            display: flex;
+            justify-content: center;
+            gap: 20px;
 
-        button {
+        }
+        .card {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 200px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card img {
+            width: 100%;
+            height: 5.3cm;
+            object-fit: cover;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        .expanded {
+            display: block;
+        }
+        .hidden {
+            display: none;
+        }
+        .fact {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: #e9e9e9;
+        }
+        #backButton {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
             background-color: #007bff;
             color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
+            display: flex;
+            align-items: center;
         }
-
-        button:hover {
+        #backButton:hover {
             background-color: #0056b3;
         }
-
-        p {
-            font-size: 18px;
-            margin-top: 20px;
+        #expandedCard {
+            position: static;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to the Fun Facts App!</h1>
-        <button id="generateFactButton">Generate Fun Fact</button>
-        <p id="factDisplay">Click the button to see a fun fact!</p>
+    
+
+<div class="container" id="cardContainer">
+    <div class="card" onclick="expandCard(1)">
+        <img src="EM.webp" alt="Elon Musk Image">
+        <h3>Elon Musk</h3>
     </div>
-    <script>
-        const funFacts = [
-            "SpaceX is the first privately funded company to reach orbit with the Dragon capsule in 2010.",
-            "SpaceX pioneered reusable rockets with the Falcon 9, reducing space travel costs.",
-            "SpaceX First private company to send humans to the ISS with Crew Dragon in 2020.",
-            "SpaceX is Developing Starship for human travel to Mars and beyond.",
-            "Deploying Starlink satellites for global high-speed internet.",
-            "Mars is known as the 'Red Planet' due to its color.",
-            "Mars is the Home to Olympus Mons, the tallest volcano in the solar system.",
-            "Valles Marineris, the deepest and longest canyon, surpasses the Grand Canyon.",
-            "Elon Musk old a space-themed video game, 'Blastar,' at age 12 for $500.",
-            "Elon Musk early success in software foreshadowed his future in tech and entrepreneurship."
+    <div class="card" onclick="expandCard(2)">
+        <img src="Starship.jpg" alt="SpaceX Starship Image">
+        <h3>SpaceX</h3>
+    </div>
+    <div class="card" onclick="expandCard(3)">
+        <img src="Mars.jpg" alt = "Mars Image">
+        <h3>Mars</h3>
+    </div>
+</div>
+
+<!-- https://via.placeholder.com/250 -->
+
+<div id="expandedCard" class="hidden">
+    <button id="backButton" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i> Back
+    </button>
+    <div><img id="expandedImage" src="" alt="" style="width: 100%; border-radius: 8px;"></div>
+    <button id="generateButton" onclick="generateFact()">Generate Fact</button>
+    <div id="factDisplay" class="fact hidden"></div>
+</div>
+
+<script>
+    const ElonMusk = [
+    "He learned computer programming at the age of 10 and created a video game  called Blastar 👾 , which he sold for $500 when he was just 12 years old",
+    "His initial wealth came from co-founding PayPal, which was sold to eBay for $1.5 billion 💰 in stock in 2002",
+    "His learning principles emphasize understanding fundamental concepts, applying First Principles Thinking 🧠, seeking feedback, and nurturing curiosity to foster innovation and effective problem-solving across various fields.",
+            
         ];
+    const SpaceX = [
+    "Musk is the founder of SpaceX, company that have revolutionized space travel 🚀 ",
+    "SpaceX's Falcon 1 became the first privately developed liquid-fueled rocket to reach Earth's 🌎 orbit in 2008, marking a significant achievement for private space exploration",
+    "SpaceX has pioneered the development of reusable ♻️ rocket technology.",
+            
+        ];
+    const Mars = [
+    "Mars 🟠 is often called the 'Red Planet ' due to its surface covered in iron oxide (rust), giving it a reddish appearance",
+    "Mars has two small, irregularly shaped moons named Phobos 🌕 and Deimos 🌕, which may be captured asteroids. ",
+    "A year on Mars lasts 687 Earth days 🗓️, making it nearly twice as long as an Earth year",];
 
-        function getRandomFact() {
-            const randomIndex = Math.floor(Math.random() * funFacts.length);
-            return funFacts[randomIndex];
-        }
+function expandCard(cardNumber) {
+    // Hide the cards
+    document.getElementById('cardContainer').style.display = 'none';
+    const expandedCard = document.getElementById('expandedCard');
+    expandedCard.classList.remove('hidden');
 
-        document.getElementById('generateFactButton').addEventListener('click', () => {
-            const fact = getRandomFact();
-            document.getElementById('factDisplay').innerText = fact;
-        });
-    </script>
-</body>
-</html>
+    // Set the image and button action
+    if(cardNumber == 1){document.getElementById('expandedImage').src = `EM.webp`;
+    document.getElementById('expandedImage').alt = `Elon Musk Image`;
+    document.getElementById('generateButton').setAttribute('data-card', cardNumber);
+    document.getElementById('factDisplay').classList.add('hidden');}
+
+    if(cardNumber == 2){document.getElementById('expandedImage').src = `Starship.jpg`;
+    document.getElementById('expandedImage').alt = `Starship Image`;
+    document.getElementById('generateButton').setAttribute('data-card', cardNumber);
+    document.getElementById('factDisplay').classList.add('hidden');}
+
+    if(cardNumber == 3){document.getElementById('expandedImage').src = `Mars.jpg`;
+    document.getElementById('expandedImage').alt = `Mars Image`;
+    document.getElementById('generateButton').setAttribute('data-card', cardNumber);
+    document.getElementById('factDisplay').classList.add('hidden');}
+}
+
+function generateFact() {
+    const cardNumber = document.getElementById('generateButton').getAttribute('data-card');
+    const factDisplay = document.getElementById('factDisplay');
+    
+    // Use the SpaceX array to get the fact
+    if(cardNumber==1){
+        const numbers = [0, 1, 2]
+        const randomIndex = Math.floor(Math.random() * numbers.length);
+        factDisplay.textContent = ElonMusk[randomIndex];; // Adjusting for zero-based index
+        factDisplay.classList.remove('hidden');
+    }
+
+    if(cardNumber==2){
+        const numbers = [0, 1, 2]
+        const randomIndex = Math.floor(Math.random() * numbers.length);
+        factDisplay.textContent = SpaceX[randomIndex];; // Adjusting for zero-based index
+        factDisplay.classList.remove('hidden');
+    }
+
+    if(cardNumber==3){
+        const numbers = [0, 1, 2]
+        const randomIndex = Math.floor(Math.random() * numbers.length);
+        factDisplay.textContent = Mars[randomIndex];; // Adjusting for zero-based index
+        factDisplay.classList.remove('hidden');
+    }
+}
+
+function goBack() {
+    // Show the cards again
+    document.getElementById('cardContainer').style.display = 'flex';
+
+    // Hide the expanded card section
+    const expandedCard = document.getElementById('expandedCard');
+    expandedCard.classList.add('hidden');
+
+    // Clear the fact display
+    document.getElementById('factDisplay').textContent = '';
+    document.getElementById('factDisplay').classList.add('hidden');
+}
+
+        </script>
+        </body>
+        </html>
